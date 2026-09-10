@@ -425,12 +425,12 @@ struct transceiver_config_t {
     // Defaults below target the Waveshare ESP32-S3-Zero. GPIO23 doesn't exist on
     // ESP32-S3 and GPIO19/20 are the native USB D-/D+ lines, so the classic ESP32
     // VSPI pins (18/19/23/5) this project used upstream cannot be reused here.
-    uint8_t SCKPin = 12;
-    uint8_t TXPin = 14;
-    uint8_t RXPin = 6;
-    uint8_t MOSIPin = 11;
-    uint8_t MISOPin = 13;
-    uint8_t CSNPin = 10;
+    uint8_t SCKPin = 7;
+    uint8_t TXPin = 3;
+    uint8_t RXPin = 4;
+    uint8_t MOSIPin = 9;
+    uint8_t MISOPin = 8;
+    uint8_t CSNPin = 6;
     bool radioInit = false;
     float frequency = 433.42;         // Basic frequency
     float deviation = 47.60;          // Set the Frequency deviation in kHz. Value from 1.58 to 380.85. Default is 47.60 kHz.
