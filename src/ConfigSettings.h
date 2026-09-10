@@ -92,12 +92,15 @@ class EthernetSettings: BaseSettings {
   public:
     EthernetSettings();
     uint8_t boardType = 0; // These board types are enumerated in the ui and used to set the chip settings.
-    eth_phy_type_t phyType = ETH_PHY_LAN8720;
-    eth_clock_mode_t CLKMode = ETH_CLOCK_GPIO0_IN;
-    int8_t phyAddress = ETH_PHY_ADDR;
-    int8_t PWRPin = ETH_PHY_POWER;
-    int8_t MDCPin = ETH_PHY_MDC;
-    int8_t MDIOPin = ETH_PHY_MDIO;
+    // Stored as raw values (rather than the legacy eth_phy_type_t/eth_clock_mode_t
+    // enums) since RMII Ethernet (ETH_PHY_*) only exists on chips with EMAC hardware
+    // (SOC_EMAC_SUPPORTED, i.e. original ESP32) - see connectWired() in SomfyNetwork.cpp.
+    uint8_t phyType = 0;    // ETH_PHY_LAN8720
+    uint8_t CLKMode = 0;    // ETH_CLOCK_GPIO0_IN
+    int8_t phyAddress = 0;  // ETH_PHY_ADDR
+    int8_t PWRPin = -1;     // ETH_PHY_POWER
+    int8_t MDCPin = 23;     // ETH_PHY_MDC
+    int8_t MDIOPin = 18;    // ETH_PHY_MDIO
     
     bool begin();
     bool fromJSON(JsonObject &obj);

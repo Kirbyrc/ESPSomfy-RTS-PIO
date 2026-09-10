@@ -3,6 +3,7 @@
 #include <Update.h>
 #include <HTTPClient.h>
 #include <esp_task_wdt.h>
+#include <esp_chip_info.h>
 #include "ConfigSettings.h"
 #include "GitOTA.h"
 #include "Utils.h"
@@ -10,7 +11,7 @@
 #include "Somfy.h"
 #include "Web.h"
 #include "WResp.h"
-#include "Network.h"
+#include "SomfyNetwork.h"
 
 
 
@@ -20,7 +21,7 @@ extern SocketEmitter sockEmit;
 extern SomfyShadeController somfy;
 extern rebootDelay_t rebootDelay;
 extern Web webServer;
-extern Network net;
+extern SomfyNetwork net;
 
 
 

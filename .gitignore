@@ -1,3 +1,4 @@
+.pio/
 .theia/
 debug_custom.json
 esp32.vsd

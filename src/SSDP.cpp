@@ -1,5 +1,7 @@
 #include <functional>
 #include <AsyncUDP.h>
+#include <WiFi.h>
+#include <ETH.h>
 #include "Utils.h"
 #include "ConfigSettings.h"
 #include "SSDP.h"
@@ -380,19 +382,15 @@ void SSDPClass::_parsePacket(ssdp_packet_t *pkt, AsyncUDPPacket &p) {
 }
 IPAddress SSDPClass::localIP()
 {
-    // Make sure we don't get a null IPAddress.
-    tcpip_adapter_ip_info_t ip;
+    // tcpip_adapter was removed from the ESP-IDF network stack; these Arduino
+    // accessors are the portable equivalent of the old TCPIP_ADAPTER_IF_STA/ETH lookups.
     if (WiFi.getMode() == WIFI_STA) {
-        if (tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_STA, &ip)) {
-            return IPAddress();
-        }
+        return WiFi.localIP();
     } else if (WiFi.getMode() == WIFI_OFF) {
-        if (tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_ETH, &ip)) {
-            return IPAddress();
-        }
+        return ETH.localIP();
     }
-    return IPAddress(ip.ip.addr);
-}    
+    return IPAddress();
+}
 void SSDPClass::_sendResponse(IPAddress addr, uint16_t port, UPNPDeviceType *d, const char *st, response_types_t responseType) {
   char buffer[1460];
   IPAddress ip = this->localIP();

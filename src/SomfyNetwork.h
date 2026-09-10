@@ -7,7 +7,7 @@
 
 #define CONNECT_TIMEOUT 20000
 #define SSID_SCAN_INTERVAL 60000
-class Network {
+class SomfyNetwork {
   protected:
     unsigned long lastEmit = 0;
     unsigned long lastMDNS = 0;

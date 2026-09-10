@@ -680,8 +680,8 @@ bool EthernetSettings::begin() {
 bool EthernetSettings::fromJSON(JsonObject &obj) {
   if(obj.containsKey("boardType")) this->boardType = obj["boardType"];
   if(obj.containsKey("phyAddress")) this->phyAddress = obj["phyAddress"];
-  if(obj.containsKey("CLKMode")) this->CLKMode = static_cast<eth_clock_mode_t>(obj["CLKMode"]);
-  if(obj.containsKey("phyType")) this->phyType = static_cast<eth_phy_type_t>(obj["phyType"]);
+  if(obj.containsKey("CLKMode")) this->CLKMode = obj["CLKMode"];
+  if(obj.containsKey("phyType")) this->phyType = obj["phyType"];
   if(obj.containsKey("PWRPin")) this->PWRPin = obj["PWRPin"];
   if(obj.containsKey("MDCPin")) this->MDCPin = obj["MDCPin"];
   if(obj.containsKey("MDIOPin")) this->MDIOPin = obj["MDIOPin"];
@@ -732,8 +732,8 @@ bool EthernetSettings::save() {
 bool EthernetSettings::load() {
   pref.begin("ETH");
   this->boardType = pref.getChar("boardType", this->boardType);
-  this->phyType = static_cast<eth_phy_type_t>(pref.getChar("phyType", ETH_PHY_LAN8720));
-  this->CLKMode = static_cast<eth_clock_mode_t>(pref.getChar("CLKMode", ETH_CLOCK_GPIO0_IN));
+  this->phyType = pref.getChar("phyType", this->phyType);
+  this->CLKMode = pref.getChar("CLKMode", this->CLKMode);
   this->phyAddress = pref.getChar("phyAddress", this->phyAddress);
   this->PWRPin = pref.getChar("PWRPin", this->PWRPin);
   this->MDCPin = pref.getChar("MDCPin", this->MDCPin);
