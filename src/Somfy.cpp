@@ -4886,13 +4886,14 @@ void transceiver_config_t::load() {
     esp_chip_info(&ci);
     switch(ci.model) {
       case esp_chip_model_t::CHIP_ESP32S3:
+        // Waveshare ESP32-S3-Zero wiring.
         Serial.println("Setting S3 Transceiver Defaults...");
-        this->TXPin = 15;
-        this->RXPin = 14;
-        this->MOSIPin = 11;
-        this->MISOPin = 13;
-        this->SCKPin = 12;
-        this->CSNPin = 10;
+        this->TXPin = 3;
+        this->RXPin = 4;
+        this->MOSIPin = 9;
+        this->MISOPin = 8;
+        this->SCKPin = 7;
+        this->CSNPin = 6;
         break;
       case esp_chip_model_t::CHIP_ESP32S2:
         this->TXPin = 15;

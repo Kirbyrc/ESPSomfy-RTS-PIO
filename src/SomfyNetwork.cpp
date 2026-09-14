@@ -626,6 +626,7 @@ void SomfyNetwork::networkEvent(WiFiEvent_t event) {
       net.connType = conn_types_t::wifi;
       net.connectTime = millis();
       net.setConnected(conn_types_t::wifi);
+      rgbLedWrite(RGB_BUILTIN, 0, 128, 0); // green once WiFi is connected
       break;
     case ARDUINO_EVENT_WIFI_STA_LOST_IP:        Serial.println("Lost IP address and IP address is reset to 0"); break;    
     case ARDUINO_EVENT_ETH_GOT_IP:
@@ -667,11 +668,13 @@ void SomfyNetwork::networkEvent(WiFiEvent_t event) {
       Serial.println(WiFi.softAPIP());
       net.openingSoftAP = false;
       net.softAPOpened = true;
+      rgbLedWrite(RGB_BUILTIN, 0, 0, 128); // blue while the WiFi hotspot (SoftAP) is active
       break;
     case ARDUINO_EVENT_WIFI_AP_STOP:
       if(!net.openingSoftAP) Serial.println("(evt) WiFi SoftAP Stopped");
       net.softAPOpened = false;
-      break;      
+      rgbLedWrite(RGB_BUILTIN, 128, 0, 0); // back to red (searching) once the hotspot closes
+      break;
     default:
       if(event > ARDUINO_EVENT_ETH_START)
         Serial.printf("(evt) Unknown Ethernet Event %d\n", event);

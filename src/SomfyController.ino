@@ -21,6 +21,7 @@ GitUpdater git;
 
 uint32_t oldheap = 0;
 void setup() {
+  rgbLedWrite(RGB_BUILTIN, 128, 0, 0); // red until WiFi connects, see ARDUINO_EVENT_WIFI_STA_GOT_IP in SomfyNetwork.cpp
   Serial.begin(115200);
   Serial.println();
   Serial.println("Startup/Boot....");
@@ -42,7 +43,10 @@ void setup() {
     .idle_core_mask = 0,
     .trigger_panic = true
   };
-  esp_task_wdt_init(&wdtConfig); //enable panic so ESP32 restarts
+  // The ESP32 Arduino core now starts the TWDT itself (CONFIG_ESP_TASK_WDT_INIT)
+  // before setup() runs, so init() here just fails with ESP_ERR_INVALID_STATE -
+  // reconfigure() is the correct call once it's already running.
+  if(esp_task_wdt_init(&wdtConfig) == ESP_ERR_INVALID_STATE) esp_task_wdt_reconfigure(&wdtConfig);
   esp_task_wdt_add(NULL); //add current thread to WDT watch
 
 }
