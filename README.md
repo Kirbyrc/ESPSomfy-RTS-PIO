@@ -1,5 +1,7 @@
 # ESPSomfy-RTS <image src="https://user-images.githubusercontent.com/47839015/218898940-3541b360-5c49-4e38-a918-392cd0408b76.png" align="right" style="width:177px;display:inline-block;float:right"></image>
 
+> This fork is ported to build under PlatformIO — see [PIOCHANGES.md](PIOCHANGES.md) for what changed and how to build it.
+
 A controller for Somfy RTS blinds and shades that supports up to 32 individual shades and 16 groups over 433MHz RTx protocols.  If you have IO Home Control motors this project is not for you but you can use the IO Remote protocol to connect the ESPSomfy RTS device to a disected remote.  Look in the [Wiki](https://github.com/rstrouse/ESPSomfy-RTS/wiki/Controlling-Motors-with-GPIO) for options and verify whether the solution is workable for you.
 
 Most of the 433MHz protocols are supported to include RTS, RTW, RTV/L and 433.92MHz radio transceivers.  You can even mix and match these on the same device as long as the base frequency is tuned within the same range.  For instance, you cannot have 433.92MHz and 433.42MHz motors on the same device.

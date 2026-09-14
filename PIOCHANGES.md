@@ -4,10 +4,10 @@ The goal of this fork/port is to build and run ESPSomfy-RTS inside the
 PlatformIO environment in VSCode, rather than the Arduino IDE. This file
 documents the changes made on top of the ported ESPSomfy-RTS-PIO project
 during debugging of a watchdog-reboot crash on "Save Radio Settings"
-(Waveshare ESP32-S3-Zero + CC1101). It does not cover the initial port to
-PlatformIO or the board-specific pin mapping, which predate these changes.
+(Waveshare ESP32-S3-Zero + CC1101). 
 
 Original project: [rstrouse/ESPSomfy-RTS](https://github.com/rstrouse/ESPSomfy-RTS)
+(forked from version 2.4.7)
 
 ## Porting to PlatformIO
 
@@ -119,3 +119,40 @@ connects (pre-existing behavior). Added:
   configuration).
 - `ARDUINO_EVENT_WIFI_AP_STOP` → LED reverts to **red** once the hotspot
   closes, so it doesn't stay stuck blue.
+
+## Building the project
+
+This project targets the `esp32s3zero` environment defined in
+`platformio.ini` (Waveshare ESP32-S3-Zero, `framework = arduino`).
+
+**Prerequisites:** either the [PlatformIO IDE extension for
+VSCode](https://platformio.org/install/ide?install=vscode), or PlatformIO
+Core (the `pio` CLI) installed standalone.
+
+**Using VSCode:** open this folder in VSCode with the PlatformIO extension
+installed — it will pick up `platformio.ini` automatically. Use the
+PlatformIO toolbar/status bar icons (or the PlatformIO sidebar's Project
+Tasks) to Build, Upload, Upload Filesystem Image, and Monitor.
+
+**Using the CLI**, from the project root:
+
+```sh
+# Build the firmware
+pio run -e esp32s3zero
+
+# Build and flash the firmware to a connected board
+pio run -e esp32s3zero -t upload
+
+# Build and flash the web UI (everything under data/) to the board's
+# LittleFS partition - required for the web interface to work, and
+# needs to be done separately from flashing the firmware
+pio run -e esp32s3zero -t uploadfs
+
+# Open a serial monitor (115200 baud, per platformio.ini)
+pio device monitor
+```
+
+The compiled firmware lands at `.pio/build/esp32s3zero/firmware.bin`.
+Both `upload` and `uploadfs` need the board connected over USB; if more
+than one serial device is attached, add `--upload-port <COMx>` to target
+the right one.

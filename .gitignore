@@ -1,11 +1,10 @@
 .pio/
 .theia/
 debug_custom.json
-esp32.vsd
 esp32s3.svd
 debug.cfg
 
-SomfyController.ino.XIAO_ESP32S3.bin
-SomfyController.ino.esp32c3.bin
-SomfyController.ino.esp32s2.bin
+SomfyController.ino.esp32.bin
+SomfyController.ino.esp32s3.bin
+SomfyController.littlefs.bin
 .vscode/settings.json
